@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row justify-content-center mt-5">
+    <div class="col-8">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Message</th>
+              <th scope="col">Age</th>
+              <th scope="col">Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in posts %}
+              <tr>
+                {% if session['userid'] == post['postWriterID'] %}
+                    <th><a href="{{url_for('profile', userid=post['postWriterID'])}}">{{post['id']}}</a> (You)</th>
+                {% else %}
+                    <th>{{post['id']}}</th>
+                {% endif %}
+                <td>{{post['postMessage']}}</td>
+                <td>{{post['postAge']}}</td>
+                <td>{{post['postGender']}}</td>
+              </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+<div class="row text-center mt-4">
+    <div class="col">
+        <a href="{{url_for('top')}}">トップページへ</a>
+    </div>
+</div>
+{% endblock %}

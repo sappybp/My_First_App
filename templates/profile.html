@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% if session['userid'] %}
+        <div class="text-center">
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3>こんにちは、{{session['name']}}さん。</h3>
+                </div>
+                <div class="col-12 pt-3">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-2 text-right">
+                            <h5>メールアドレス：</h5>
+                        </div>
+                        <div class="col-3">
+                            <h6>{{session['email']}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 pt-3">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-2 text-right">
+                            <h5>あなたの性別：</h5>
+                        </div>
+                        <div class="col-3">
+                            <h6>{{session['gender']}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
