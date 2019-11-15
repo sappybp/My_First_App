@@ -35,7 +35,7 @@
   - メニュー
   <img width="1221" alt="スクリーンショット 2019-11-15 9 36 30" src="https://user-images.githubusercontent.com/49954969/68908122-97fdd780-078d-11ea-851e-a09abe25ef72.png">
 
-  -flashのポップ
+  - flashのポップ
   <img width="1109" alt="スクリーンショット 2019-11-15 9 36 09" src="https://user-images.githubusercontent.com/49954969/68908114-87e5f800-078d-11ea-8393-8f5a21f590ca.png">
   
   - プロフィールページ
