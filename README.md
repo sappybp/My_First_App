@@ -1,4 +1,4 @@
-# Thanks_for_Flask_app
+# Thanks_for_Everyone
 
 ## アプリケーションの概要。
   - 感謝したくても出来ない人たちが気持ちを匿名で吐けるアプリケーション。
