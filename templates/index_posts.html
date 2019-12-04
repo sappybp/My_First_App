@@ -24,10 +24,11 @@
                 <td>{{post['postAge']}}</td>
                 <td>{{post['postGender']}}</td>
               </tr>
-
             {% endfor %}
           </tbody>
         </table>
+        {{ pagination.info }}
+        {{ pagination.links }}
     </div>
 </div>
 <div class="row text-center mt-4">

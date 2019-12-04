@@ -3,6 +3,7 @@ from init_db import app, init_db, get_db, modify_db, query_db
 from config import SECRET_KEY, emailRegEx, pwRegEx
 from os import path
 import re
+from flask_paginate import Pagination, get_page_parameter
 
 # トップページ
 @app.route("/")
@@ -223,14 +224,20 @@ def delete(userid):
 #ユーザー一覧ページ。ログインしなくても見れる。
 @app.route("/usersViewing")
 def index_users():
-    users = query_db('user', "SELECT * FROM user")
-    return render_template("index_users.html", users=users)
+    All_user = query_db('user', "SELECT * FROM user")
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    users = All_user[(page - 1)*2: page*2]
+    pagination = Pagination(page=page, total=len(All_user),  per_page=2, css_framework='bootstrap4')
+    return render_template('index_users.html', users=users, pagination=pagination)
 
 #投稿一覧ページ。ログインしなくても見れる。
-@app.route("/postsViewing")
+@app.route("/postsViewing", methods=['GET', 'POST'])
 def index_posts():
-    posts = query_db('post', "SELECT * FROM post")
-    return render_template("index_posts.html", posts=posts)
+    All_post = query_db('post', "SELECT * FROM post")
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    posts = All_post[(page - 1)*10: page*10]
+    pagination = Pagination(page=page, total=len(All_post),  per_page=10, css_framework='bootstrap4')
+    return render_template('index_posts.html', posts=posts, pagination=pagination)
 
 #データーベースがなかった時に実行する。
 @app.before_first_request
@@ -242,4 +249,4 @@ def init_app():
 
 if __name__ == '__main__':
     app.secret_key = SECRET_KEY
-    app.run()
+    app.run(debug=True)
