@@ -5,7 +5,7 @@
 ## デプロイ
   - https://thanksapp00001.herokuapp.com/
   - herokuでデプロイしました。（デプロイ時はDBをSQLite3からPostgresqlへ変更。）
-  - こちらを参考にしました。（　https://qiita.com/croquette0212/items/9b4dc5377e7d6f292671　）
+  - こちらを参考にしました。: https://qiita.com/croquette0212/items/9b4dc5377e7d6f292671
 ## アプリケーションで実装したこと。
   - 新規登録機能
   - ログイン、ログアウト機能(session)
