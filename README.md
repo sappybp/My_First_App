@@ -4,7 +4,7 @@
   - 感謝したくても出来ない人たちが気持ちを匿名で吐けるアプリケーション。
 ## デプロイ
   - https://thanksapp00001.herokuapp.com/
-  - herokuでデプロイしました。（デプロイ時はDBをSQLite3からPostgresqlへ変更。）
+  - herokuでデプロイしました。（デプロイ時はDBをSQLite3からPostgreSQLへ変更。）
   - こちらを参考にしました。: https://qiita.com/croquette0212/items/9b4dc5377e7d6f292671
 ## アプリケーションで実装したこと。
   - 新規登録機能
@@ -19,7 +19,7 @@
 ## 開発環境
   - プログラミング言語はPythonです。
   - フレームワークはFlaskです。
-  - データーベースには、SQLite3を使用しました。
+  - データーベースには、SQLite3を使用しました。(デプロイ時には、PostgreSQL)
   - Bootstrap
 ## スクリーンショット
   - topページ
