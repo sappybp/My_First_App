@@ -194,28 +194,56 @@ def post(userid):
 
 
 
-
-@app.route("/<int:userid>/delete", methods=['GET', 'POST'])
+#ユーザー削除
+@app.route("/<int:userid>/Udelete", methods=['GET', 'POST'])
 def delete(userid):
-    # ログインしていない場合、トップページへ。
-    if 'userid' not in session:
-        flash(u"ログインしていないとアカウントは削除できません。", 'warning')
-        return redirect(url_for("top"))
-    # useridとsessionのIDを検証。
-    elif int(userid) != session['userid']:
-        flash(u"他のユーザーのアカウントは削除できません。", 'warning')
-        return redirect(url_for('profile', userid=session['userid']))
+    # ---に管理者の名前を代入。
+    if session['name'] != "---":
+        # ログインしていない場合、トップページへ。
+        if 'userid' not in session:
+            flash(u"ログインしていないとアカウントは削除できません。", 'warning')
+            return redirect(url_for("top"))
+        # useridとsessionのIDを検証。
+        elif int(userid) != session['userid']:
+            flash(u"他のユーザーのアカウントは削除できません。", 'warning')
+            return redirect(url_for('profile', userid=session['userid']))
+        else:
+            if request.method == 'GET':
+                return render_template("delete.html")
+            elif request.method == 'POST':
+
+                #dbから情報を削除。(アカウント削除)
+                modify_db('user', "DELETE FROM user where id=?", (session['userid'],))
+
+                session.clear()
+                flash(u"アカウント削除できました。感謝は残ります", 'info')
+                return redirect(url_for("top"))
     else:
+        if request.method == 'POST':
+
+            #DBから情報を削除。
+            modify_db('user', "DELETE FROM user where id=?", (userid,))
+
+            flash(u"このユーザーを削除しました。", 'info')
+            return redirect(url_for("top"))
+
+
+#投稿削除
+@app.route("/<int:postid>/Pdelete", methods=['GET', 'POST'])
+def postDelete(postid):
+    # ---に管理者の名前を代入。
+    if session['name'] == '---':
         if request.method == 'GET':
-            return render_template("delete.html")
+            return redirect(url_for('top'))
         elif request.method == 'POST':
 
+            #dbから情報を削除。（投稿削除）
+            modify_db('post', "DELETE FROM post where id=?", (postid,))
 
-            modify_db('user', "DELETE FROM user where id=?", (session['userid'],))
-
-            session.clear()
-            flash(u"アカウント削除できました。感謝は残ります", 'info')
-            return redirect(url_for("top"))
+            flash(u"投稿を削除しました。", 'info')
+            return redirect(url_for("index_posts"))
+    else:
+        return redirect(url_for('top'))
 
 
 
@@ -224,7 +252,9 @@ def delete(userid):
 #ユーザー一覧ページ。ログインしなくても見れる。
 @app.route("/usersViewing")
 def index_users():
-    All_user = query_db('user', "SELECT * FROM user")
+    #全データを取得,管理者以外を取得。
+    All_user = query_db('user', "SELECT * FROM user WHERE name not in ('---')")
+    #ページネーション
     page = request.args.get(get_page_parameter(), type=int, default=1)
     users = All_user[(page - 1)*2: page*2]
     pagination = Pagination(page=page, total=len(All_user),  per_page=2, css_framework='bootstrap4')
@@ -233,7 +263,9 @@ def index_users():
 #投稿一覧ページ。ログインしなくても見れる。
 @app.route("/postsViewing", methods=['GET', 'POST'])
 def index_posts():
+    #全データを取得。
     All_post = query_db('post', "SELECT * FROM post")
+    #ページネーション
     page = request.args.get(get_page_parameter(), type=int, default=1)
     posts = All_post[(page - 1)*10: page*10]
     pagination = Pagination(page=page, total=len(All_post),  per_page=10, css_framework='bootstrap4')

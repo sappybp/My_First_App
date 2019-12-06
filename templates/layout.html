@@ -20,6 +20,10 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                  {% if session['name'] == '---' %}
+                    <li class="nav-item active text-warning">管理者</li>
+                  {% else %}
+                  {% endif %}
                   <li class="nav-item active">
                     <a class="nav-link" href="{{url_for('profile', userid=session['userid'])}}">マイページ<span class="sr-only">(current)</span></a>
                   </li>

@@ -4,7 +4,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-8">
             <table class="table table-striped">
-              <thead>
+              <thead class='thead-dark'>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
@@ -15,14 +15,18 @@
               <tbody>
                 {% for user in users %}
                   <tr>
-                    <th scope="row">{{user['id']}}</th>
                     {% if session['userid'] == user['id'] %}
-                        <th><a href="{{url_for('profile', userid=user['id'])}}">{{user['name']}}</a> (You)</th>
+                      <th><a href="{{url_for('profile', userid=user['id'])}}">{{user['name']}}</a> (You)</th>
                     {% else %}
-                        <td>{{user['name']}}</td>
+                      <td>{{user['name']}}</td>
                     {% endif %}
                     <td>{{user['email']}}</td>
                     <td>{{user['gender']}}</td>
+                    {% if session['name'] == "---"  %}
+                      <form action="{{url_for('delete', userid=user['id'])}}" method="post">
+                        <td><button type="submit" class="btn table-active">削除</button></td>
+                      </form>
+                    {% endif %}
                   </tr>
                 {% endfor %}
               </tbody>
