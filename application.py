@@ -187,7 +187,6 @@ def post(userid):
             modify_db('post', "INSERT INTO post (postMessage, postAge, postGender, postWriterID) VALUES(?,?,?,?)",
                      (request.form.get('postMessage'), request.form.get('postAge'), request.form.get('postGender'), session['userid']))
 
-            # user = query_db('user', "SELECT * FROM user WHERE id = ?", (session['userid'],), True)
 
             flash(u"投稿できました。",'info')
             return redirect(url_for("index_posts"))
