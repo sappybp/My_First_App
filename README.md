@@ -46,3 +46,13 @@
   - プロフィールページ
   <img width="1221" alt="スクリーンショット 2019-11-15 9 35 50" src="https://user-images.githubusercontent.com/49954969/68908086-73096480-078d-11ea-9ce0-2b3eba04f289.png">
 
+  - 管理者マーク
+  <img width="1678" alt="スクリーンショット 2019-12-07 3 09 47" src="https://user-images.githubusercontent.com/49954969/70345556-af694580-189f-11ea-943e-fa5ef28129a2.png">
+  
+  - 投稿削除
+  <img width="1678" alt="スクリーンショット 2019-12-07 3 10 10" src="https://user-images.githubusercontent.com/49954969/70345637-da539980-189f-11ea-91df-0854da0e2565.png">
+
+  
+  - ユーザー削除
+  <img width="1678" alt="スクリーンショット 2019-12-07 3 10 03" src="https://user-images.githubusercontent.com/49954969/70345607-cad45080-189f-11ea-9280-dd92ee3a37d8.png">
+  
