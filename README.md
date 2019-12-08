@@ -4,7 +4,7 @@
   - 感謝したくても出来ない人たちが気持ちを匿名で吐けるアプリケーション。
 ## デプロイ
   - https://thanksapp00001.herokuapp.com/
-  - herokuでデプロイしました。（デプロイ時はDBをSQLite3からPostgresqlへ変更。）
+  - herokuでデプロイしました。（デプロイ時はDBをSQLite3からPostgreSQLへ変更。）
   - こちらを参考にしました。: https://qiita.com/croquette0212/items/9b4dc5377e7d6f292671
 ## アプリケーションで実装したこと。
   - 新規登録機能
@@ -15,10 +15,12 @@
   - プロフィールをアップデートする機能。
   - 感謝を投稿する機能。
   - 感謝一覧ページ作成。
+  - 一覧ページのページネーション機能。
+  - 投稿、ユーザーを削除できる管理者を作りました。（不格好、改善の余地あり。）
 ## 開発環境
   - プログラミング言語はPythonです。
   - フレームワークはFlaskです。
-  - データーベースには、SQLite3を使用しました。
+  - データーベースには、SQLite3を使用しました。(デプロイ時には、PostgreSQL)
   - Bootstrap
 ## スクリーンショット
   - topページ
@@ -45,3 +47,13 @@
   - プロフィールページ
   <img width="1221" alt="スクリーンショット 2019-11-15 9 35 50" src="https://user-images.githubusercontent.com/49954969/68908086-73096480-078d-11ea-9ce0-2b3eba04f289.png">
 
+  - 管理者マーク
+  <img width="1678" alt="スクリーンショット 2019-12-07 3 09 47" src="https://user-images.githubusercontent.com/49954969/70345556-af694580-189f-11ea-943e-fa5ef28129a2.png">
+  
+  - 投稿削除
+  <img width="1678" alt="スクリーンショット 2019-12-07 3 10 10" src="https://user-images.githubusercontent.com/49954969/70345637-da539980-189f-11ea-91df-0854da0e2565.png">
+
+  
+  - ユーザー削除
+  <img width="1678" alt="スクリーンショット 2019-12-07 3 10 03" src="https://user-images.githubusercontent.com/49954969/70345607-cad45080-189f-11ea-9280-dd92ee3a37d8.png">
+  

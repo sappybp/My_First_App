@@ -6,7 +6,6 @@
             <table class="table table-striped">
               <thead class='thead-dark'>
                 <tr>
-                  <th scope="col">#</th>
                   <th scope="col">Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Gender</th>
@@ -22,7 +21,7 @@
                     {% endif %}
                     <td>{{user['email']}}</td>
                     <td>{{user['gender']}}</td>
-                    {% if session['name'] == "---"  %}
+                    {% if session['email'] == "sample@gmail.com"  %}
                       <form action="{{url_for('delete', userid=user['id'])}}" method="post">
                         <td><button type="submit" class="btn table-active">削除</button></td>
                       </form>

@@ -197,7 +197,7 @@ def post(userid):
 @app.route("/<int:userid>/Udelete", methods=['GET', 'POST'])
 def delete(userid):
     # ---に管理者の名前を代入。
-    if session['name'] != "---":
+    if session['email'] != "sample@gmail.com":
         # ログインしていない場合、トップページへ。
         if 'userid' not in session:
             flash(u"ログインしていないとアカウントは削除できません。", 'warning')
@@ -224,14 +224,14 @@ def delete(userid):
             modify_db('user', "DELETE FROM user where id=?", (userid,))
 
             flash(u"このユーザーを削除しました。", 'info')
-            return redirect(url_for("top"))
+            return redirect(url_for("index_users"))
 
 
 #投稿削除
 @app.route("/<int:postid>/Pdelete", methods=['GET', 'POST'])
 def postDelete(postid):
     # ---に管理者の名前を代入。
-    if session['name'] == '---':
+    if session['email'] == 'sample@gmail.com':
         if request.method == 'GET':
             return redirect(url_for('top'))
         elif request.method == 'POST':
@@ -252,7 +252,7 @@ def postDelete(postid):
 @app.route("/usersViewing")
 def index_users():
     #全データを取得,管理者以外を取得。
-    All_user = query_db('user', "SELECT * FROM user WHERE name not in ('---')")
+    All_user = query_db('user', "SELECT * FROM user WHERE email not in ('sample@gmail.com')")
     #ページネーション
     page = request.args.get(get_page_parameter(), type=int, default=1)
     users = All_user[(page - 1)*2: page*2]

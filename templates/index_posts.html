@@ -4,7 +4,7 @@
 <div class="row justify-content-center mt-5">
     <div class="col-8">
         <table class="table table-striped">
-          <thead>
+          <thead class='thead-dark'>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Message</th>
@@ -15,15 +15,15 @@
           <tbody>
             {% for post in posts %}
               <tr>
-                {% if session['userid'] == post['writerid'] %}
+                {% if session['userid'] == post['postWriterID'] %}
                     <th><a href="{{url_for('profile', userid=post['writerid'])}}">{{post['id']}}</a> (You)</th>
                 {% else %}
                     <th>{{post['id']}}</th>
                 {% endif %}
-                <td>{{post['message']}}</td>
-                <td>{{post['age']}}</td>
-                <td>{{post['gender']}}</td>
-                {% if session['name'] == '---' %}
+                <td>{{post['postMessage']}}</td>
+                <td>{{post['postAge']}}</td>
+                <td>{{post['postGender']}}</td>
+                {% if session['email'] == 'sample@gmail.com' %}
                   <form action="{{url_for('postDelete', postid=post['id'])}}" method="post">
                     <td><button type="submit" class="btn table-active">削除</button></td>
                   </form>
