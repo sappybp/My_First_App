@@ -4,17 +4,30 @@
         <meta name="viewport" content="initial-scale=1, width=device-width">
         <!-- CSS -->
         <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../static/css/style.css" rel="stylesheet">
+
+        <style type="text/css">
+        {% if session['email'] == 'sample@gmail.com'%}
+          .jumbotron { background:url(https://www.pakutaso.com/shared/img/thumb/YAMAyamasha-14_TP_V.jpg) center no-repeat; background-size: cover;}
+        {% elif session['userid'] %}
+          .jumbotron { background:url(https://www.pakutaso.com/shared/img/thumb/kirigamine-1_TP_V.jpg) center no-repeat; background-size: cover;}
+        {% else %}
+          .jumbotron { background:url(https://www.pakutaso.com/shared/img/thumb/ZUBDSC_6618_TP_V.jpg) center no-repeat; background-size: cover;}
+        {% endif %}
+        </style>
+
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- JavaScript -->
         <script src="../static/js/bootstrap.min.js"></script>
-        <title>Thanks Flask App</title>
+
+        <title>Thanks App</title>
     </head>
-    <body>
+    <body class="bg-dark">
         <!-- navbar -->
         {% if session['userid'] %}
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-              <a class="navbar-brand" href="{{url_for('top')}}">Flask App</a>
+              <a class="navbar-brand" href="{{url_for('top')}}">Thanks App</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -96,40 +109,44 @@
         {% endif %}
         <!-- navbar end -->
         <!-- container -->
-        <div class=".container-fluid">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        {% if category == 'error' %}
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        {% elif category == 'warning' %}
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        {% elif category == 'info' %}
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            {% block body %}{% endblock %}
+        <div class="jumbotron">
+          <div class=".container-fluid">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                      {% for category, message in messages %}
+                          {% if category == 'error' %}
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                          {% elif category == 'warning' %}
+                              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                          {% elif category == 'info' %}
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                          {% endif %}
+                      {% endfor %}
+                  {% endif %}
+              {% endwith %}
+                  <div class="text-white">
+                      {% block body %}{% endblock %}
+                  </div>
+          </div>
+          <!-- container end -->
+          <footer class="footer fixed-bottom bg-dark">
+              <a class="text-white float-right h5 mr-3" href="{{url_for('top')}}">Thanks App</a>
+          </footer>
         </div>
-        <!-- container end -->
-        <footer class="footer fixed-bottom bg-dark">
-            <a class="text-white float-right h5 mr-3" href="{{url_for('top')}}">Flask App</a>
-        </footer>
     </body>
 </html>

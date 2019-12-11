@@ -1,35 +1,84 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="text-center">
-        <div class="row mt-5">
-            <div class="col">
-                <h1>Hello . Welcome to Flask App.</h1>
-                <h5>Thanks for you!!</h5>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col">
-                <h5>Developed by Sho Sappinai</h5>
-            </div>
-        </div>
-        {% if not session['userid'] %}
+        <div class="text-center text-white">
             <div class="row mt-5">
-                <div class="col-12">
-                    <h6>新規登録</h6>
-                </div>
-                <div class="col-12">
-                    <a href="{{url_for('register')}}">新規登録はここから可能です。</a>
+                <div class="col">
+                    <h1>Hello . Welcome to Thanks App.</h1>
+                    <p>ようこそ、ThanksAppへ。</p>
+                    <p>ここでは、匿名で感謝を吐くことができます。</p>
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-12">
-                    <h6>ログイン</h6>
-                </div>
-                <div class="col-12">
-                    <a href="{{url_for('login')}}">ログインはここからすることができます。</a>
+                <div class="col">
+                    <h5>Developed by Sho</h5>
                 </div>
             </div>
-        {% endif %}
-    </div>
+            <div class="row mt-5">
+                <div id="example-menu" class="list-group col-12">
+                  <h3 class="text-white">道しるべ</h3>
+                  <a class="text-light mt-1" href="#section-1">その１</a>
+                  <a class="text-light mt-1" href="#section-2">その２</a>
+                  <a class="text-light mt-1" href="#section-3">その３</a>
+                </div>
+                <div id="example-main" class="col-12">
+                  <h2 id="section-1" class="mt-5">その１、心を落ち着かせるべし！</h2>
+                  <p style="height:cover" class="text-left">
+                    山の画像をスクレイピングする。私たちは、日頃からあらゆる障害を前に生きています。
+                    その障害は、良い意味でも悪い意味でも、あなたをその場に立ち止まらせます。
+                    その状況に「私たちはもっと自由であるべきです！」とは言いません。
+                    ただ、感謝に関しては例外です。
+                    人は、感謝し、感謝され、感謝を求めています。
+                    すべての人は、あなたのそれを望んでいるのです。
+                    望まれているモノを解放しないでは、そのほかを解放することは難しいでしょう。<br><br>
+                    では、どうすれば心を落ち着かせることができ、その障害をしっかりと乗り越えることができるのか。 <br><br>
+                    それは山を見ること。それに尽きます。</p>
+                  <h2 id="section-2" class="mt-5">その２、門を叩くべし！</h2>
+                  <p style="height:cover" class="text-left">
+                    新規登録を最後につける。あなたは無事、心を落ち着かせることができました。
+                    次に待っているのは、視覚に落とすことです。
+                    残念ながら、心を落ち着かせるだけでは、他に認めさせることはできません。
+                    あなたの感謝が人の数百倍の心力を持っていたとしても人には伝わりません。
+                    それは、神様、仏様でも同じです。視覚に落とさなければ伝わりません。<br>
+                    では、どうすればいいのか。
+                    それが、私たち、Thanks Appなのです。
+                    恥ずかしかったり、緊張したり、ラジバンダリー。
+                    思いは人それぞれです。
+                    が、ここでは匿名で感謝を吐けるように作られています。<br><br>
+                    そうです。<br><br>
+                    今あなたが一番求めているモノが、これなのです。<br><br>
+                    今すぐこの <a href="{{url_for('register')}}" class="text-warning">門</a> を叩きましょう。</p>
+                  <h2 id="section-3" class="mt-5">その３、あとは感謝するだけ！</h2>
+                  <p style="height:cover" class="text-left">
+                    投稿と投稿一覧を最後につける。よくぞここまで歩むことができました。
+                    あとは、感謝をするだけです。
+                    投稿時に、設定する項目以外の情報は一切開示されません。
+                    自分の思いを吐けるだけ吐きましょう。<br>
+                    メッセージは１０文字以上３０文字以内と短めに設定しています。<br>
+                    ですので、もう一度深く自分の心に潜り込み、
+                    あなたの心力を生かし、短く、伝える、心のこもった文をメイクしてみてください。</p>
+                  {% if session['userid']%}
+                    <p style="height:cover" class="text-left">それでは、<a href="{{url_for('post', userid=session['userid'])}}">投稿</a>に行こう。</p>
+                  {% endif %}
+                </div>
+            </div>
+            {% if not session['userid'] %}
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h6>新規登録</h6>
+                    </div>
+                    <div class="col-12">
+                        <a href="{{url_for('register')}}">新規登録はここから可能です。</a>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h6>ログイン</h6>
+                    </div>
+                    <div class="col-12">
+                        <a href="{{url_for('login')}}">ログインはここからすることができます。</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
 {% endblock %}

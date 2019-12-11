@@ -16,25 +16,26 @@ def register():
     #ログイン状態の確認。
     if 'userid' in session:
         flash(u"すでにログインしています。プロフィールへ飛びました。", 'warning')
-        return redirect(url_for('profile', userid=session['userid']))
+        return redirect(url_for("top"))
     else:
         if request.method == 'GET':
             return render_template("register.html", session=session)
         elif request.method == 'POST':
             #便宜上、sessionに入れておく。（再入力を省くため、パスワードはやめておく）
             session['name']   = request.form.get("name")
-            session['email']  = request.form.get("email")
             session['gender'] = request.form.get("gender")
 
             # email検証
-            if re.fullmatch(emailRegEx, session['email']) == None:
+            if re.fullmatch(emailRegEx, request.form.get("email")) == None:
                 flash(u"メールアドレスが無効です。", 'warning')
                 return redirect(url_for("register"))
             else:
-                if query_db('user', "SELECT * FROM user WHERE email = ?", (session['email'],), True) != None:
+                if query_db('user', "SELECT * FROM user WHERE email = ?", (request.form.get("email"),), True) != None:
                     flash(u"もうすでに使われているメールアドレスです。", 'warning')
                     return redirect(url_for("register"))
 
+
+            session['email'] = request.form.get("email")
             # パスワード検証
             if re.fullmatch(pwRegEx, request.form.get("password")) == None:
                 flash(u"パスワードが無効です。８文字以上、少なくとも一つの大文字、小文字、英数字を含んでください。", 'warning')
@@ -57,16 +58,14 @@ def login():
     # すでにログインしていればプロフィールへ。
     if 'userid' in session:
         flash(u"もうすでにログインしています。", 'warning')
-        return redirect(url_for('profile', userid=session['userid']))
+        return redirect(url_for("top"))
     else:
         if request.method == 'GET':
             return render_template("login.html", session=session)
         elif request.method == 'POST':
-            # 再入力の手間を省くため、sessionにメールアドレスを加える。
-            session['email'] = request.form.get("email")
 
             # userがDBにいるかの確認。パスワードがあっているかの確認。
-            user = query_db('user', "SELECT * FROM user WHERE email = ?", (session['email'],), True)
+            user = query_db('user', "SELECT * FROM user WHERE email = ?", (request.form.get("email"),), True)
             if user == None:
                 flash(u"メールアドレスが間違っている可能性があります。", 'warning')
                 return redirect(url_for("login"))
@@ -74,9 +73,11 @@ def login():
                 flash(u"パスワードが違います。", 'warning')
                 return redirect(url_for("login"))
 
+
             # sessionに情報を加える。
             session['userid'] = user['id']
             session['name']   = user['name']
+            session['email'] = user['email']
             session['gender'] = user['gender']
             flash(u"ログインに成功しました。", 'info')
             return redirect(url_for('profile', userid=session['userid']))

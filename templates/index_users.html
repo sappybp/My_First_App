@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="row justify-content-center mt-5">
+    <div class="row center mt-5">
         <div class="col-8">
             <table class="table table-striped">
               <thead class='thead-dark'>
@@ -11,7 +11,7 @@
                   <th scope="col">Gender</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="text-white">
                 {% for user in users %}
                   <tr>
                     {% if session['userid'] == user['id'] %}
@@ -23,7 +23,7 @@
                     <td>{{user['gender']}}</td>
                     {% if session['email'] == "sample@gmail.com"  %}
                       <form action="{{url_for('delete', userid=user['id'])}}" method="post">
-                        <td><button type="submit" class="btn table-active">削除</button></td>
+                        <td><button type="submit" class="btn table-active text-white">削除</button></td>
                       </form>
                     {% endif %}
                   </tr>
