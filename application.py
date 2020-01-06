@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for, session, flash
-from init_db import app, init_db, get_db, modify_db, query_db
+from db import app, init_db, get_db, modify_db, query_db
 from config import SECRET_KEY, emailRegEx, pwRegEx
 from os import path
 import re
@@ -228,10 +228,33 @@ def delete(userid):
             return redirect(url_for("index_users"))
 
 
+#投稿いいねカウント
+@app.route("/Plike", methods=['POST'])
+def postLike(postid):
+    # ---に管理者のメールアドレスを代入。
+        if request.method == 'GET':
+            flash(u'いいねできませんでした。再度お試しください。')
+            return redirect(url_for('index_posts'))
+        elif request.method == 'POST':
+            post = query_db('post', "SELECT * FROM post WHERE id = ?", (postid,), True)
+            postlike = post['postLike'] + 1
+
+            #dbからpostLikeを取り出しアップデート。
+            # modify_db('user', "UPDATE user \
+            #            SET name=?, email=?, password=?, gender=? \
+            #            WHERE id=?",
+            #            (session['name'], session['email'], request.form.get("password"), session['gender'], session['userid']))
+            modify_db('post', "UPDATE post \
+                       SET postLike=? \
+                       WHERE id=?", (postlike, postid))
+
+            flash(u"投稿にいいねしました。", 'info')
+            return redirect(url_for("index_posts"))
+
 #投稿削除
 @app.route("/<int:postid>/Pdelete", methods=['GET', 'POST'])
 def postDelete(postid):
-    # ---に管理者の名前を代入。
+    # ---に管理者のメールアドレスを代入。
     if session['email'] == 'sample@gmail.com':
         if request.method == 'GET':
             return redirect(url_for('top'))
@@ -270,6 +293,8 @@ def index_posts():
     posts = All_post[(page - 1)*10: page*10]
     pagination = Pagination(page=page, total=len(All_post),  per_page=10, css_framework='bootstrap4')
     return render_template('index_posts.html', posts=posts, pagination=pagination)
+
+
 
 #データーベースがなかった時に実行する。
 @app.before_first_request

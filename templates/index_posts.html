@@ -10,19 +10,54 @@
               <th scope="col">Message</th>
               <th scope="col">Age</th>
               <th scope="col">Gender</th>
+
+              <!-- <th scope="col">like</th> -->
+
             </tr>
           </thead>
           <tbody class="text-white">
             {% for post in posts %}
               <tr>
                 {% if session['userid'] == post['postWriterID'] %}
-                    <th><a href="{{url_for('profile', userid=post['writerid'])}}">{{post['id']}}</a> (You)</th>
+                    <th><a href="{{url_for('profile', userid=post['PostWriterId'])}}">{{post['id']}}</a> (You)</th>
                 {% else %}
                     <th>{{post['id']}}</th>
                 {% endif %}
                 <td>{{post['postMessage']}}</td>
-                <td>{{post['postAge']}}</td>
+
+                <!-- 年齢はその数値にしないとダメです。 -->
+                {% if post['postAge'] == "0" %}
+                  <td>~10</td>
+                {% elif post['postAge'] == "1" %}
+                  <td>11~20</td>
+                {% elif post['postAge'] == "2" %}
+                  <td>21~30</td>
+                {% elif post['postAge'] == "3" %}
+                  <td>31~40</td>
+                {% elif post['postAge'] == "4" %}
+                  <td>41~50</td>
+                {% elif post['postAge'] == "5" %}
+                  <td>51~60</td>
+                {% elif post['postAge'] == "6" %}
+                  <td>61~70</td>
+                {% elif post['postAge'] == "7" %}
+                  <td>71~80</td>
+                {% elif post['postAge'] == "8" %}
+                  <td>81~90</td>
+                {% elif post['postAge'] == "9" %}
+                  <td>91~100</td>
+                {% elif post['postAge'] == "10" %}
+                  <td>100~</td>
+                {% else %}
+                  <td>Error</td>
+                {% endif %}
+
                 <td>{{post['postGender']}}</td>
+
+                <!-- <form class="like_submit" method="post">
+                    <td><button type="submit" class="btn table-active text-white" value='{{post['id']}}' id = 'btn-like'>{{post['postLike']}} いいね!</button></td>
+                </form> -->
+
                 {% if session['email'] == 'sample@gmail.com' %}
                   <form action="{{url_for('postDelete', postid=post['id'])}}" method="post">
                     <td><button type="submit" class="btn table-active text-white">削除</button></td>

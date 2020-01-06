@@ -4,14 +4,17 @@
 <div class="row justify-content-center mt-5">
     <h1>感謝を綴ろう。</h1>
 </div>
+<div class="text-center">
+    <img class="img-fluid w-25" src="../static/img/9085.png">
+</div>
 <form action="{{url_for('post', userid=session['userid'])}}" method="post">
     <div class="form-group row justify-content-center pt-3">
-        <label for="inputPostMessage" class="col-sm-2 col-form-label">氏名</label>
+        <label for="inputPostMessage" class="col-sm-2 col-form-label">メッセージ</label>
         <div class="col-sm-6">
             {% if session['postMessage'] %}
-              <input name="postMessage" type="text" placeholder="Your Name" value="{{session['postMessage']}}" class="form-control" id="inputPostMessage" required>
+              <input name="postMessage" type="text" placeholder="Your Message" value="{{session['postMessage']}}" class="form-control" id="inputPostMessage" required>
             {% else %}
-              <input name="postMessage" type="text" placeholder="Your Name" class="form-control" id="inputPostMessage" required>
+              <input name="postMessage" type="text" placeholder="Your Message" class="form-control" id="inputPostMessage" required>
             {% endif %}
         </div>
     </div>
